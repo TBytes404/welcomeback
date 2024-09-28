@@ -1,12 +1,24 @@
 import { object, string } from "zod";
 
-export const signInSchema = object({
-  username: string({ required_error: "Username is required" })
-    .trim()
-    .min(2, "Username must be more than 2 characters")
-    .max(32, "Username must be less than 32 characters")
-    .regex(/^[a-zA-Z][a-zA-Z0-9-_]$/, "Username mustn't contain symbols"),
-  password: string({ required_error: "Password is required" })
-    .min(8, "Password must be more than 8 characters")
-    .max(32, "Password must be less than 32 characters"),
+export const SignInFormSchema = object({
+  nickname: string({ required_error: "Be present" })
+    .min(1, { message: "Be at least 1 character long." })
+    .max(32, { message: "Be at most 32 characters long." })
+    .trim(),
+  password: string({ required_error: "Be present" })
+    .min(4, { message: "Be at least 4 characters long" })
+    .max(32, { message: "Be at most 32 characters long." })
+    .regex(/[a-zA-Z]/, { message: "Contain at least one letter." })
+    .regex(/[0-9]/, { message: "Contain at least one number." })
+    .trim(),
 });
+
+export type FormState =
+  | {
+      errors?: {
+        nickname?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;

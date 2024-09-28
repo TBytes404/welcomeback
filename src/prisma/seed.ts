@@ -1,27 +1,18 @@
-import { PrismaClient, Prisma } from "@prisma/client";
-import { saltHashPassword } from "@/utils";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const userData: Prisma.UserCreateInput[] = [
-  // @ts-expect-error Top-level 'await'
-  { name: "Alice", passhash: await saltHashPassword("Alice") },
-  // @ts-expect-error Top-level 'await'
-  { name: "Nilu", passhash: await saltHashPassword("Nilu") },
-  // @ts-expect-error Top-level 'await'
-  { name: "Mahmoud", passhash: await saltHashPassword("Mahmoud") },
-];
-
 async function main() {
   console.log(`Start seeding ...`);
-  for (const data of userData) {
+  ["abcdefG0"].forEach(async (nickname) => {
+    const data = { nickname, password: nickname };
     const user = await prisma.user.upsert({
       create: data,
       update: data,
-      where: { name: data.name },
+      where: { nickname },
     });
     console.log(`Created user with id: ${user.id}`);
-  }
+  });
   console.log(`Seeding finished.`);
 }
 
