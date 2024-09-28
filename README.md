@@ -1,4 +1,4 @@
-This is a Chat App, made with [Next.js](https://nextjs.org) [Auth.js](https://nextjs.dev) [Prisma](https://prisma.io) [Spline](http://spline.design)
+This is a Web App, made with [Next.js](https://nextjs.org) [Auth.js](https://nextjs.dev) [Prisma](https://prisma.io) [Spline](http://spline.design)
 
 ## Getting Started
 
@@ -6,6 +6,12 @@ This is a Chat App, made with [Next.js](https://nextjs.org) [Auth.js](https://ne
 
 ```bash
 npm i
+```
+
+2. Setup environment:
+
+```bash
+mv example.env .env
 ```
 
 2. Setup database:
